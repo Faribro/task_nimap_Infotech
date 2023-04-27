@@ -1,0 +1,60 @@
+<div>
+  <h2>Category Master</h2>
+  <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+      />
+      <div
+        *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched"
+        class="text-danger"
+      >
+        Name is required.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      {{isEditMode ? 'Update' : 'Save'}}
+    </button>
+    <button type="button" class="btn btn-default" (click)="cancelEdit()">
+      Cancel
+    </button>
+  </form>
+
+  <hr />
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{category.id}}</td>
+        <td>{{category.name}}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="editCategory(category)"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteCategory(category.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
